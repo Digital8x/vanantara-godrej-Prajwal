@@ -108,15 +108,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($stmt->execute()) {
-        // Fetch System Settings
+        // Fetch System Settings (if available)
         $config_res = $conn->query("SELECT * FROM settings");
         $config = [];
-        while($c_row = $config_res->fetch_assoc()) {
-            $config[$c_row['meta_key']] = $c_row['meta_value'];
+        if ($config_res) {
+            while($c_row = $config_res->fetch_assoc()) {
+                $config[$c_row['meta_key']] = $c_row['meta_value'];
+            }
         }
 
+        // Override or fallback to .env settings
+        $config['smtp_host'] = $_ENV['SMTP_HOST'] ?? $config['smtp_host'] ?? '';
+        $config['smtp_user'] = $_ENV['SMTP_USER'] ?? $config['smtp_user'] ?? '';
+        $config['smtp_pass'] = $_ENV['SMTP_PASS'] ?? $config['smtp_pass'] ?? '';
+        $config['smtp_port'] = $_ENV['SMTP_PORT'] ?? $config['smtp_port'] ?? '465';
+        $config['smtp_from_name'] = $_ENV['SMTP_FROM_NAME'] ?? $config['smtp_from_name'] ?? 'Godrej Vanantara Leads';
+        $config['admin_email'] = $_ENV['ADMIN_EMAIL'] ?? $config['admin_email'] ?? '';
+        $config['cc_emails'] = $_ENV['CC_EMAILS'] ?? $config['cc_emails'] ?? '';
+
         // Admin Notification
-        $to_emails = $config['admin_email'] ?? "diyarjun9@gmail.com";
+        $to_emails = !empty($config['admin_email']) ? $config['admin_email'] : "diyarjun9@gmail.com";
         $subject = "New Lead: " . $name . " | " . $project;
         
         $techInfo = ($hasBrowserCol) ? "$deviceType | $browser" : "$deviceType ($browser)";

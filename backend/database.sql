@@ -24,12 +24,3 @@ CREATE TABLE IF NOT EXISTS `settings` (
   UNIQUE KEY `meta_key` (`meta_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `settings` (`meta_key`, `meta_value`) VALUES
-('smtp_host', 'mail.shivabihani.com'),
-('smtp_user', 'leads@shivabihani.com'),
-('smtp_pass', '={3)%J6b1mh7'),
-('smtp_port', '465'),
-('smtp_from_name', 'Godrej Vanantara Leads'),
-('cc_emails', 'binodbihanij@yahoo.com,henry_siva@outlook.com'),
-('admin_email', 'harshmheswry@gmail.com,diyarjun9@gmail.com')
-ON DUPLICATE KEY UPDATE `meta_value` = VALUES(`meta_value`);
