@@ -23,7 +23,7 @@ while($row = $settings_result->fetch_assoc()) {
     $config[$row['meta_key']] = $row['meta_value'];
 }
 
-$to = $config['admin_email'] ?? 'diyarjun9@gmail.com';
+$to = $config['admin_email'] ?? 'admin@example.com';
 $to_list = explode(',', $to);
 $primary_to = trim($to_list[0]);
 

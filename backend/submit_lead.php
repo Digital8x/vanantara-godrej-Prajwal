@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $config['cc_emails'] = $_ENV['CC_EMAILS'] ?? $config['cc_emails'] ?? '';
 
         // Admin Notification
-        $to_emails = !empty($config['admin_email']) ? $config['admin_email'] : "diyarjun9@gmail.com";
+        $to_emails = !empty($config['admin_email']) ? $config['admin_email'] : "admin@example.com";
         $subject = "New Lead: " . $name . " | " . $project;
         
         $techInfo = ($hasBrowserCol) ? "$deviceType | $browser" : "$deviceType ($browser)";
