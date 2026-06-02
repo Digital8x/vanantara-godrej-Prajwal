@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You | Godrej Vanantara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-16711552862"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-16711552862');
+    </script>
+
+    <!-- Event snippet for Godrej conversion page -->
+    <script>
+      gtag('event', 'conversion', {'send_to': 'AW-16938866721/QHN0CNDQh64cEKGwio0_'});
+    </script>
+    <style>
+        :root {
+            --godrej-gradient: linear-gradient(to right, #5FB233, #4187CE, #BD1362);
+            --primary: #BD1362;
+        }
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #111;
+            color: white;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin: 0;
+            user-select: none;
+        }
+        .thankyou-card {
+            background: #1a1a1a;
+            padding: 60px;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+            max-width: 500px;
+            width: 90%;
+        }
+        .thankyou-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: var(--godrej-gradient);
+        }
+        h1 { 
+            font-size: 3rem;
+            background: var(--godrej-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        p { color: #aaa; font-size: 1.2rem; margin-bottom: 20px; }
+        .timer { font-weight: bold; color: #5FB233; font-size: 1.5rem; }
+        .btn-home {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: var(--godrej-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+    <div class="thankyou-card">
+        <h1>Thank You!</h1>
+        <p>Your interest in <strong>Godrej Vanantara</strong> has been recorded successfully.</p>
+        <p>Our project expert will reach out to you within 24 hours.</p>
+        <p>Redirecting you back in <span class="timer" id="countdown">5</span> seconds...</p>
+        <a href="index.html" class="btn-home">Return Home Now</a>
+    </div>
+
+    <script>
+        // Anti-Copy
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && (e.key === 'c' || e.key === 'u' || e.key === 's')) e.preventDefault();
+        });
+
+        let count = 5;
+        const countdown = document.getElementById('countdown');
+        const interval = setInterval(() => {
+            count--;
+            countdown.innerText = count;
+            if (count <= 0) {
+                clearInterval(interval);
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>

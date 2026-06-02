@@ -1,0 +1,10 @@
+# GODREJ VANANTARA ROBOTS.TXT
+User-agent: *
+Allow: /
+
+# Sitemap Location
+Sitemap: https://thegodrejvanantara.com/sitemap.xml
+
+# Disallow sensitive directories
+Disallow: /backend/
+Disallow: /admin/
