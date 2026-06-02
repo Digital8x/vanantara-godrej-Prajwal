@@ -2,26 +2,28 @@ const cron = require('node-cron');
 const mysql = require('mysql2/promise');
 const nodemailer = require('nodemailer');
 
+require('dotenv').config({ path: '../.env' }); // Load .env from root
+
 // Database Configuration
 const dbConfig = {
-    host: 'localhost',
-    user: 'a1679hju_GodrejPrajwal',
-    password: 'ArjunEswar',
-    database: 'a1679hju_GodrejPrajwal'
+    host: process.env.DB_HOST || 'localhost',
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'test'
 };
 
 // Email Configuration (Configure SMTP here)
 const transporter = nodemailer.createTransport({
-    host: 'smtp.example.com', // Replace with actual SMTP
-    port: 587,
-    secure: false,
+    host: process.env.SMTP_HOST || 'smtp.example.com',
+    port: process.env.SMTP_PORT || 587,
+    secure: process.env.SMTP_PORT == 465,
     auth: {
-        user: 'admin@example.com',
-        pass: 'password123'
+        user: process.env.SMTP_USER || 'admin@example.com',
+        pass: process.env.SMTP_PASS || 'password123'
     }
 });
 
-const adminEmail = 'admin@example.com'; // Change to actual admin email
+const adminEmail = process.env.ADMIN_EMAIL || 'admin@example.com'; // Change to actual admin email
 
 // Scheduled task: Every morning at 9:00 AM IST
 // IST is UTC + 5:30. 9:00 AM IST = 3:30 AM UTC.
