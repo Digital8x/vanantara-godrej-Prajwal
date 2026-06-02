@@ -20,10 +20,10 @@ if (file_exists($envFile)) {
     foreach ($lines as $line) {
         if (strpos(trim($line), '#') === 0) continue;
         if (strpos($line, '=') !== false) {
-            list($name, $value) = explode('=', $line, 2);
-            $name = trim($name);
-            $value = trim(trim($value), '"\'');
-            $_ENV[$name] = $value;
+            list($envKey, $envValue) = explode('=', $line, 2);
+            $envKey = trim($envKey);
+            $envValue = trim(trim($envValue), '"\'');
+            $_ENV[$envKey] = $envValue;
         }
     }
 }
