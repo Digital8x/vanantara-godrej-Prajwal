@@ -1,16 +1,13 @@
 # Prevent viewing of sensitive files
-<FilesMatch "\.(env|sql|json|js)$">
+<FilesMatch "\.(env|sql|json)$">
     Order allow,deny
     Deny from all
 </FilesMatch>
 
-# Allow regular front-end JS files inside the 'js' folder to be loaded
-<Directory "js">
-    <FilesMatch "\.js$">
-        Order allow,deny
-        Allow from all
-    </FilesMatch>
-</Directory>
+<FilesMatch "^(server)\.js$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
 
 # Disable directory browsing
 Options -Indexes
