@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Sitemap Location
-Sitemap: https://thegodrejvanantara.com/sitemap.xml
+Sitemap: https://vanantara-godrej.com/sitemap.xml
 
 # Disallow sensitive directories
 Disallow: /backend/
