@@ -19,7 +19,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; max-width: 100%; }
 
 html, body {
-    overflow-x: clip;
+    overflow-x: hidden;
     width: 100%;
     position: relative;
 }
@@ -29,7 +29,7 @@ body {
     color: #333;
     background: var(--white);
     line-height: 1.6;
-    overflow-x: clip;
+    overflow-x: hidden;
 }
 
 html { scroll-behavior: smooth; }
