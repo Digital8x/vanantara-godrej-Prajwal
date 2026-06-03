@@ -40,12 +40,19 @@ $response = ['status' => 'error', 'message' => 'Invalid request'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
 
-    // 1. Rate Limiting Check
+    // Extract project name early for rate limiting
+    $project = trim($_POST['project'] ?? 'Godrej Vanantara');
+
+    // 1. Rate Limiting Check (Per Form/Button)
     $now = time();
-    if (isset($_SESSION['last_submission_time'])) {
-        $timeSinceLast = $now - $_SESSION['last_submission_time'];
-        if ($timeSinceLast < 60) { // Block if less than 60 seconds since last submission
-            echo json_encode(['status' => 'error', 'message' => 'You are submitting too fast. Please wait a moment.']);
+    if (!isset($_SESSION['submission_times'])) {
+        $_SESSION['submission_times'] = [];
+    }
+    
+    if (isset($_SESSION['submission_times'][$project])) {
+        $timeSinceLast = $now - $_SESSION['submission_times'][$project];
+        if ($timeSinceLast < 60) {
+            echo json_encode(['status' => 'error', 'message' => 'You recently submitted this specific request. Please wait a moment.']);
             exit;
         }
     }
@@ -203,8 +210,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $response = ['status' => 'success', 'message' => 'Thank you! Your inquiry has been submitted.'];
-        // Update session submission time
-        $_SESSION['last_submission_time'] = time();
+        // Update session submission time for this specific project/form
+        $_SESSION['submission_times'][$project] = time();
     } else {
         $response = ['status' => 'error', 'message' => 'Database error: ' . $stmt->error];
     }
