@@ -38,6 +38,25 @@ function sendLeadEmail($to, $subject, $body, $config) {
 $response = ['status' => 'error', 'message' => 'Invalid request'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    session_start();
+
+    // 1. Rate Limiting Check
+    $now = time();
+    if (isset($_SESSION['last_submission_time'])) {
+        $timeSinceLast = $now - $_SESSION['last_submission_time'];
+        if ($timeSinceLast < 60) { // Block if less than 60 seconds since last submission
+            echo json_encode(['status' => 'error', 'message' => 'You are submitting too fast. Please wait a moment.']);
+            exit;
+        }
+    }
+    
+    // 2. Honeypot Check
+    if (!empty($_POST['company_website'])) {
+        // Bot detected, silently reject but pretend it was successful
+        echo json_encode(['status' => 'success', 'message' => 'Thank you! Your inquiry has been submitted.']);
+        exit;
+    }
+
     $name = trim($_POST['name'] ?? '');
     $phone = trim($_POST['phone'] ?? '');
     $email = trim($_POST['email'] ?? '');
@@ -184,6 +203,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $response = ['status' => 'success', 'message' => 'Thank you! Your inquiry has been submitted.'];
+        // Update session submission time
+        $_SESSION['last_submission_time'] = time();
     } else {
         $response = ['status' => 'error', 'message' => 'Database error: ' . $stmt->error];
     }
