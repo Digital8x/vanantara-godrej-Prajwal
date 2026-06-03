@@ -13,6 +13,19 @@
 
       gtag('config', 'AW-17909692430');
     </script>
+
+    <!-- Geo-Block (India Only) -->
+    <script>
+        fetch('https://ipapi.co/json/')
+        .then(res => res.json())
+        .then(data => {
+            if(data.country_code && data.country_code !== 'IN') {
+                document.body.innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100vh; background:#111; color:white; font-family:sans-serif; text-align:center;"><div><h1 style="color:#BD1362; margin-bottom: 10px;">Access Restricted</h1><p style="color:#aaa;">This website is currently only accessible from India.</p></div></div>';
+                document.body.style.overflow = 'hidden';
+            }
+        })
+        .catch(err => console.error('Geo check failed'));
+    </script>
     
     <!-- Primary SEO -->
     <title>Godrej Vanantara | 36-Acre Forest-Themed Luxury at Bannerghatta Road</title>

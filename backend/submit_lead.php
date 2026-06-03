@@ -95,6 +95,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
+    // Strict India-Only Check
+    if (strtolower($country) !== 'india' && $country !== 'Unknown') {
+        echo json_encode(['status' => 'error', 'message' => 'Submissions are currently only accepted from India.']);
+        exit;
+    }
+
     // Include Database Config
     require_once 'db_config.php';
 
