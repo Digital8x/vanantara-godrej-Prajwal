@@ -70,12 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $project = trim($_POST['project'] ?? 'Godrej Vanantara');
     $message = trim($_POST['message'] ?? '');
 
-    if (empty($name) || empty($phone) || empty($email)) {
-        echo json_encode(['status' => 'error', 'message' => 'Name, Phone, and Email are required.']);
+    if (empty($name) || empty($phone)) {
+        echo json_encode(['status' => 'error', 'message' => 'Name and Phone are required.']);
         exit;
     }
 
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo json_encode(['status' => 'error', 'message' => 'Invalid email address format.']);
         exit;
     }

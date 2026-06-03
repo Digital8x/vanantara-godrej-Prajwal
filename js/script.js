@@ -143,6 +143,18 @@ function openPopup(ctx) {
     const modal = document.getElementById("leadModal");
     const modalTitle = document.getElementById("modalTitle");
     const popupProject = document.getElementById("popup-project");
+    
+    // Reset form and button state if previously locked
+    const form = document.getElementById("popup-lead-form");
+    if(form) {
+        form.reset();
+        const btn = form.querySelector('.btn-submit');
+        if(btn) {
+            btn.innerHTML = 'Submit Inquiry';
+            btn.disabled = false;
+        }
+    }
+    
     if(modal) { modal.style.display = "block"; modalTitle.innerText = ctx; popupProject.value = ctx; }
 }
 function closePopup() { 
