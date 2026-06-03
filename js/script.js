@@ -27,7 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
             input.parentElement.appendChild(errorMsg);
 
             const iti = window.intlTelInput(input, {
-                initialCountry: "in",
+                initialCountry: "auto",
+                geoIpLookup: function(callback) {
+                    fetch("https://ipapi.co/json")
+                    .then(res => res.json())
+                    .then(data => callback(data.country_code))
+                    .catch(() => callback("in"));
+                },
                 separateDialCode: true,
                 preferredCountries: ["in", "ae", "us", "gb"],
                 utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js"

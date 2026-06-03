@@ -38,11 +38,21 @@ function sendLeadEmail($to, $subject, $body, $config) {
 $response = ['status' => 'error', 'message' => 'Invalid request'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'] ?? '';
-    $phone = $_POST['phone'] ?? '';
-    $email = $_POST['email'] ?? '';
-    $project = $_POST['project'] ?? 'Godrej Vanantara';
-    $message = $_POST['message'] ?? '';
+    $name = trim($_POST['name'] ?? '');
+    $phone = trim($_POST['phone'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $project = trim($_POST['project'] ?? 'Godrej Vanantara');
+    $message = trim($_POST['message'] ?? '');
+
+    if (empty($name) || empty($phone) || empty($email)) {
+        echo json_encode(['status' => 'error', 'message' => 'Name, Phone, and Email are required.']);
+        exit;
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid email address format.']);
+        exit;
+    }
 
     date_default_timezone_set('Asia/Kolkata');
     $timestamp = date('Y-m-d H:i:s');
