@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const mysql = require('mysql2/promise');
 const nodemailer = require('nodemailer');
 
-require('dotenv').config({ path: '../.env' }); // Load .env from root
+require('dotenv').config();
 
 // Database Configuration
 const dbConfig = {
