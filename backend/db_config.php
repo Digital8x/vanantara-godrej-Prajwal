@@ -20,6 +20,9 @@ define('DB_USER', $_ENV['DB_USER'] ?? 'root');
 define('DB_PASS', $_ENV['DB_PASSWORD'] ?? '');
 define('DB_NAME', $_ENV['DB_NAME'] ?? 'test');
 
+// Set PHP Timezone
+date_default_timezone_set('Asia/Kolkata');
+
 // Establish Connection
 $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
@@ -27,4 +30,7 @@ $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
+
+// Set MySQL Timezone
+$conn->query("SET time_zone = '+05:30'");
 ?>
